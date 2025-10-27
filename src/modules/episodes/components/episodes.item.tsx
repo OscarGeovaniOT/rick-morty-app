@@ -1,12 +1,13 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { CharacterRickMortyType } from "../../../api/clients/types/character/character.rickmorty.type";
+import { LocationRickMortyType } from "../../../api/clients/types/location/location.rickmorty.type";
+import { EpisodeRickMortyType } from "../../../api/clients/types/episode/episode.rickmorty.type";
 
 interface Props {
-    character: CharacterRickMortyType;
+    episode: EpisodeRickMortyType;
     onPress: () => void;
 }
 
-export default function CharacterItem({ character, onPress }: Props) {
+export default function EpisodeItem({ episode, onPress }: Props) {
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -20,18 +21,18 @@ export default function CharacterItem({ character, onPress }: Props) {
                 alignItems: "center",
             }}
         >
-            <Image
-                source={{ uri: character.image }}
+            {/* <Image
+                source={{ uri: location.image }}
                 style={{ width: 70, height: 70, borderRadius: 10 }}
-            />
+            /> */}
             <View style={{ marginLeft: 12 }}>
                 <Text style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}>
-                    {character.name}
+                    {episode.name}
                 </Text>
-                <Text style={{ color: "#aaa" }}>{character.species}</Text>
-                <Text style={{ color: character.status === "Alive" ? "#4ade80" : "#f87171" }}>
+                <Text style={{ color: "#aaa" }}>{episode.air_date}</Text>
+                {/* <Text style={{ color: character.status === "Alive" ? "#4ade80" : "#f87171" }}>
                     {character.status}
-                </Text>
+                </Text> */}
             </View>
         </TouchableOpacity>
     );

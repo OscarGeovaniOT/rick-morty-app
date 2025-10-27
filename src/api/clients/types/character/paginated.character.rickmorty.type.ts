@@ -1,6 +1,6 @@
 import { CharacterRickMortyType } from "./character.rickmorty.type";
 
-export interface PaginatedCharacters {
+export interface PaginatedCharactersType {
     info: {
         count: number;
         pages: number;
