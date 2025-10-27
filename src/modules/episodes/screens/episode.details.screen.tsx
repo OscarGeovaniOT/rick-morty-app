@@ -13,6 +13,8 @@ import {
 import { LocationRickMortyType } from "../../../api/clients/types/location/location.rickmorty.type";
 import { EpisodeRickMortyType } from "../../../api/clients/types/episode/episode.rickmorty.type";
 import { LinearGradient } from "expo-linear-gradient";
+import { theme } from "../../../theme/theme";
+import { globalStyles } from "../../../theme/styles";
 
 type DetailRouteProp = RouteProp<RootStackParamList, "EpisodeDetail">;
 
@@ -36,49 +38,26 @@ export default function EpisodeDetailsScreen() {
     return <ActivityIndicator size="large" color="#00ff99" />;
 
   return (
-    <LinearGradient colors={["#1a1a2e", "#16213e"]} style={styles.container}>
-      <View style={styles.card}>
-        <Text style={styles.title}>{episode.name}</Text>
-        <Text style={styles.subtitle}>📺 Código: {episode.episode}</Text>
-        <Text style={styles.text}>🗓 Fecha de emisión: {episode.air_date}</Text>
-        <Text style={styles.text}>
+    <LinearGradient
+      colors={
+        theme.colors.backgroundGradient as unknown as readonly [
+          string,
+          string,
+          ...string[],
+        ]
+      }
+      style={globalStyles.screenContainer}
+    >
+      <View style={globalStyles.card}>
+        <Text style={globalStyles.title}>{episode.name}</Text>
+        <Text style={globalStyles.subtitle}>📺 Código: {episode.episode}</Text>
+        <Text style={globalStyles.text}>
+          🗓 Fecha de emisión: {episode.air_date}
+        </Text>
+        <Text style={globalStyles.text}>
           👥 Personajes: {episode.characters.length}
         </Text>
       </View>
     </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 20,
-  },
-  card: {
-    backgroundColor: "rgba(255,255,255,0.1)",
-    borderRadius: 16,
-    padding: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-  },
-  title: {
-    color: "#00ff99",
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  subtitle: {
-    color: "#ffffff",
-    fontSize: 18,
-    marginBottom: 12,
-  },
-  text: {
-    color: "#ccc",
-    fontSize: 16,
-    marginVertical: 4,
-  },
-  center: { flex: 1, justifyContent: "center", alignItems: "center" },
-});

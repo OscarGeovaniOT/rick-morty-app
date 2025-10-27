@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { CharacterRickMortyType } from "../../../api/clients/types/character/character.rickmorty.type";
+import { globalStyles } from "../../../theme/styles";
+import { theme } from "../../../theme/theme";
 
 type DetailRouteProp = RouteProp<RootStackParamList, "CharacterDetail">;
 
@@ -38,18 +40,22 @@ export default function CharacterDetailScreen() {
 
   return (
     <LinearGradient
-      colors={["#0f2027", "#203a43", "#2c5364"]}
-      style={styles.container}
+      colors={theme.colors.backgroundGradient as [string, string, ...string[]]}
+      style={globalStyles.screenContainer}
     >
-      <ScrollView contentContainerStyle={styles.scroll}>
-        <View style={styles.card}>
-          <Image source={{ uri: character.image }} style={styles.image} />
-          <Text style={styles.title}>{character.name}</Text>
-          <Text style={styles.subtitle}>💀 Estado: {character.status}</Text>
-          <Text style={styles.text}>👽 Especie: {character.species}</Text>
-          <Text style={styles.text}>🚻 Género: {character.gender}</Text>
-          <Text style={styles.text}>🌍 Origen: {character.origin.name}</Text>
-          <Text style={styles.text}>
+      <ScrollView contentContainerStyle={globalStyles.scroll}>
+        <View style={globalStyles.card}>
+          <Image source={{ uri: character.image }} style={globalStyles.image} />
+          <Text style={globalStyles.title}>{character.name}</Text>
+          <Text style={globalStyles.subtitle}>
+            💀 Estado: {character.status}
+          </Text>
+          <Text style={globalStyles.text}>👽 Especie: {character.species}</Text>
+          <Text style={globalStyles.text}>🚻 Género: {character.gender}</Text>
+          <Text style={globalStyles.text}>
+            🌍 Origen: {character.origin.name}
+          </Text>
+          <Text style={globalStyles.text}>
             📍 Ubicación: {character.location.name}
           </Text>
         </View>
