@@ -25,3 +25,17 @@ export const querySql = async (sql: string, params: any[] = []) => {
     throw error;
   }
 };
+
+//VErsion dos
+
+export const runInTransaction = async (
+  callback: (tx: SQLite.SQLiteDatabase) => Promise<void>
+) => {
+  await db.withTransactionAsync(async () => {
+    await callback(db);
+  });
+};
+
+export const executeSql = async (sql: string, params: any[] = []) => {
+  return db.runAsync(sql, params);
+};
