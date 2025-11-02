@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import AppNavigator from "./src/navigation/app.navigator";
-import { createTables } from "./src/database/migrations";
+import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
+import { runMigrations } from "./src/database/migrate";
+import AppNavigator from "./src/navigation/app.navigator";
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -9,7 +9,7 @@ export default function App() {
   useEffect(() => {
     const setup = async () => {
       try {
-        await createTables();
+        await runMigrations();
         console.log("Tablas creadas o ya existentes");
       } catch (error) {
         console.error("Error creando tablas:", error);
