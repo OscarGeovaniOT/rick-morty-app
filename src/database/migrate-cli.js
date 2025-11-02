@@ -4,7 +4,6 @@ import fs from "fs";
 import path from "path";
 import readline from "readline";
 import { fileURLToPath } from "url";
-import { revertLastMigration, runMigrations } from "./migrate";
 
 const _filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(_filename);
@@ -97,13 +96,17 @@ async function createMigration() {
       await createMigration();
       break;
     case "up":
-      await runMigrations();
+      {
+        const { runMigrations } = await import("./migrate");
+        await runMigrations();
+      }
       break;
     case "down":
       const confirm = await askConfirm(
         "Esta seguro de deshacer la ultima migración?"
       );
       if (confirm) {
+        const { revertLastMigration } = await import("./migrate");
         await revertLastMigration();
       } else {
         console.log("Operación cancelada");
@@ -111,9 +114,9 @@ async function createMigration() {
       break;
     default:
       console.log("Usage:");
-      console.log("  npx tsx src/database/migrate-cli.ts new nombre_migracion");
-      console.log("  npx tsx src/database/migrate-cli.ts up");
-      console.log("  npx tsx src/database/migrate-cli.ts down");
+      console.log("  npx tsx src/database/migrate-cli.js new nombre_migracion");
+      console.log("  npx tsx src/database/migrate-cli.js up");
+      console.log("  npx tsx src/database/migrate-cli.js down");  
       process.exit(1);
   }
 })();

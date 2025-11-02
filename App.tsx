@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { runMigrations } from "./src/database/migrate";
+import { LockProvider } from "./src/modules/lock/context/lock.provider";
 import AppNavigator from "./src/navigation/app.navigator";
 
 export default function App() {
