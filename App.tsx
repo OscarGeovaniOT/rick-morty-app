@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import AppNavigator from "./src/navigation/app.navigator";
-import { createTables } from "./src/database/migrations";
+import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
+import { createTables } from "./src/database/migrations";
+import { LockProvider } from "./src/modules/lock/context/lock.provider";
+import AppNavigator from "./src/navigation/app.navigator";
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -29,5 +30,9 @@ export default function App() {
     );
   }
 
-  return <AppNavigator />;
+  return (
+    <LockProvider>
+      <AppNavigator />
+    </LockProvider>
+  );
 }
