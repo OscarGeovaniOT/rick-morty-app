@@ -20,7 +20,8 @@ export const createTables = async () => {
       id INTEGER PRIMARY KEY,
       name TEXT,
       type TEXT,
-      dimension TEXT
+      dimension TEXT,
+      created TEXT
     );
   `);
 
@@ -29,7 +30,8 @@ export const createTables = async () => {
       id INTEGER PRIMARY KEY,
       name TEXT,
       air_date TEXT,
-      episode TEXT
+      episode TEXT,
+      created TEXT
     );
   `);
 };

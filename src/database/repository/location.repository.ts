@@ -4,9 +4,15 @@ import { querySql, runSql } from "../sqlite";
 export const insertLocation = async (location: LocationBdModel) => {
   await runSql(
     `INSERT OR REPLACE INTO locations 
-     (id, name, type, dimension) 
-     VALUES (?, ?, ?, ?)`,
-    [location.id, location.name, location.type, location.dimension]
+     (id, name, type, dimension, created) 
+     VALUES (?, ?, ?, ?, ?)`,
+    [
+      location.id,
+      location.name,
+      location.type,
+      location.dimension,
+      location.created,
+    ]
   );
 };
 
@@ -23,5 +29,6 @@ export const getLocations = async (
     name: r.name,
     type: r.type,
     dimension: r.dimension,
+    created: r.created,
   }));
 };

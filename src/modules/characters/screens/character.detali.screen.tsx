@@ -1,7 +1,6 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
-import { RootStackParamList } from "../../../navigation/app.navigator";
+import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useState } from "react";
-import { rickMortyService } from "../../../api/clients/rick.morty.service";
 import {
   ActivityIndicator,
   Image,
@@ -10,8 +9,9 @@ import {
   Text,
   View,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { rickMortyService } from "../../../api/clients/rick.morty.service";
 import { CharacterRickMortyType } from "../../../api/clients/types/character/character.rickmorty.type";
+import { RootStackParamList } from "../../../navigation/app.navigator";
 import { globalStyles } from "../../../theme/styles";
 import { theme } from "../../../theme/theme";
 

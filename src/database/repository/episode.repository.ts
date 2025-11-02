@@ -4,9 +4,15 @@ import { querySql, runSql } from "../sqlite";
 export const insertEpisode = async (episode: EpisodeBdModel) => {
   await runSql(
     `INSERT OR REPLACE INTO episodes 
-     (id, name, air_date, episode) 
-     VALUES (?, ?, ?, ?)`,
-    [episode.id, episode.name, episode.air_date, episode.episode]
+     (id, name, air_date, episode,created) 
+     VALUES (?, ?, ?, ?,?)`,
+    [
+      episode.id,
+      episode.name,
+      episode.air_date,
+      episode.episode,
+      episode.created,
+    ]
   );
 };
 
@@ -23,5 +29,6 @@ export const getEpisodes = async (
     name: r.name,
     air_date: r.air_date,
     episode: r.episode,
+    created: r.created,
   }));
 };

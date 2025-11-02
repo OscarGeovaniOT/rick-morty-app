@@ -1,8 +1,8 @@
-import { CharacterRickMortyType } from "../../../api/clients/types/character/character.rickmorty.type";
+import { CharacterBbModel } from "../../../database/models/character.bd.model";
 import { CharacterDomainModel } from "../models/character.domain.model";
 
-export function mapApiCharacterToDomain(
-  character: CharacterRickMortyType
+export function mapBDCharacterToDomainCharacter(
+  character: CharacterBbModel
 ): CharacterDomainModel {
   return {
     id: character.id,
@@ -11,8 +11,8 @@ export function mapApiCharacterToDomain(
     species: character.species,
     type: character.type,
     gender: character.gender,
-    origin: character.origin.name,
-    location: character.location.name,
+    origin: character.origin,
+    location: character.location,
     image: character.image,
   };
 }

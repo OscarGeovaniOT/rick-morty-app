@@ -1,7 +1,7 @@
-export type EpisodeBdModel = {
+export interface EpisodeDomainModel {
   id: number;
   name: string;
   air_date: string;
   episode: string;
-  created: string;
-};
+  // characters: string[];
+}

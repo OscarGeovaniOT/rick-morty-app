@@ -1,19 +1,12 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
-import { RootStackParamList } from "../../../navigation/app.navigator";
-import { useEffect, useState } from "react";
-import { rickMortyService } from "../../../api/clients/rick.morty.service";
-import {
-  ActivityIndicator,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { LocationRickMortyType } from "../../../api/clients/types/location/location.rickmorty.type";
 import { LinearGradient } from "expo-linear-gradient";
-import { theme } from "../../../theme/theme";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, Text, View } from "react-native";
+import { rickMortyService } from "../../../api/clients/rick.morty.service";
+import { LocationRickMortyType } from "../../../api/clients/types/location/location.rickmorty.type";
+import { RootStackParamList } from "../../../navigation/app.navigator";
 import { globalStyles } from "../../../theme/styles";
+import { theme } from "../../../theme/theme";
 
 type DetailRouteProp = RouteProp<RootStackParamList, "LocationDetail">;
 
