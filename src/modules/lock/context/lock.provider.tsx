@@ -1,57 +1,63 @@
-import { createContext, lazy, Suspense, useContext, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { lazy, Suspense, useState } from "react";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { useInactivityTimer } from "../hooks/useInactivityTimer";
+import { LockContext } from "./lock.context";
 
 // Lazy load the LockScreen component to break the require cycle
 const LockScreen = lazy(() => import("../components/lock.screen"));
 
-interface LockContextType {
-  locked: boolean;
-  unlock: () => void;
-}
-
-const LockContext = createContext<LockContextType>({
-  locked: false,
-  unlock: () => {},
-});
-
-export const useLock = () => useContext(LockContext);
-
 export const LockProvider = ({ children }: { children: React.ReactNode }) => {
   const [locked, setLocked] = useState(false);
-  const [timeoutMs, setTimeoutMs] = useState(15000); //valor inicial 1 min
-
-  useInactivityTimer(timeoutMs, () => {
-    console.log("Bloqueando app por inactividad");
-    setLocked(true);
-  });
+  const [timeoutMs] = useState(10000); //valor inicial 1 min
 
   const unlock = () => {
     console.log("Desbloqueando app");
     setLocked(false);
   };
 
+  useInactivityTimer({
+    timeout: timeoutMs,
+    onTimeout: () => {
+      console.log("Bloqueando app por inactividad");
+      setLocked(true);
+    },
+    active: !locked,
+  });
+
   return (
     <LockContext.Provider value={{ locked, unlock }}>
-      {locked ? (
-        <Suspense
-          fallback={
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <ActivityIndicator size="large" />
+      <TouchableWithoutFeedback
+        onPress={() => console.log("Actividad detectada")}
+      >
+        <View style={{ flex: 1 }}>
+          {children}
+
+          {locked && (
+            <View style={styles.overlay}>
+              <Suspense
+                fallback={<ActivityIndicator size="large" color="#fff" />}
+              >
+                <LockScreen />
+              </Suspense>
             </View>
-          }
-        >
-          <LockScreen />
-        </Suspense>
-      ) : (
-        children
-      )}
+          )}
+        </View>
+      </TouchableWithoutFeedback>
     </LockContext.Provider>
   );
 };
+
+const styles = StyleSheet.create({
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.95)",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 9999,
+  },
+});

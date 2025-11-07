@@ -1,5 +1,5 @@
 import { Button, Text, View } from "react-native";
-import { useLock } from "../context/lock.provider";
+import { useLock } from "../context/lock.context";
 
 const LockScreen = () => {
   const { unlock } = useLock();

@@ -1,5 +1,6 @@
 import { migrations } from "./migrations";
 import { executeSql, runInTransaction } from "./sqlite";
+import { querySql } from "./sqlite";
 
 export const runMigrations = async () => {
   await executeSql(`
@@ -9,10 +10,10 @@ export const runMigrations = async () => {
     );
     `);
 
-  const result = await executeSql(
+  const rows = await querySql(
     "SELECT version FROM _migrations ORDER BY version DESC LIMIT 1"
   );
-  const currentVersion = (result as any)?.rows?._array?.[0]?.version || 0;
+  const currentVersion = (rows as any)?.[0]?.version ?? 0;
 
   for (const migration of migrations) {
     if (migration.version > currentVersion) {
@@ -31,11 +32,11 @@ export const runMigrations = async () => {
 };
 
 export const revertLastMigration = async () => {
-  const result = await executeSql(
+  const rows = await querySql(
     "SELECT version FROM _migrations ORDER BY version DESC LIMIT 1"
   );
 
-  const lastVersion = (result as any)?.rows?._array?.[0]?.version || 0;
+  const lastVersion = (rows as any)?.[0]?.version ?? 0;
   if (!lastVersion) {
     console.log("No migrations to revert");
     return;
